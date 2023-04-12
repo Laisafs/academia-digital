@@ -11,8 +11,9 @@ public interface IAvaliacaoFisicaService {
    * Cria uma Avaliação Física e salva no banco de dados.
    * @param form - formulário referente aos dados para criação da Avaliação Física no banco de dados.
    * @return - Avaliação Física recém-criada.
+ * @throws Exception 
    */
-  AvaliacaoFisica create(AvaliacaoFisicaForm form);
+  AvaliacaoFisica create(AvaliacaoFisicaForm form) throws Exception;
 
   /**
    * Retorna uma Avaliação Física que está no banco de dados de acordo com seu Id.

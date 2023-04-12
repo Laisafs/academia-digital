@@ -32,7 +32,7 @@ public class AlunoServiceImpl implements IAlunoService {
 
   @Override
   public Aluno get(Long id) {
-    return null;
+    return repository.getById(id);
   }
 
   @Override
@@ -49,11 +49,22 @@ public class AlunoServiceImpl implements IAlunoService {
 
   @Override
   public Aluno update(Long id, AlunoUpdateForm formUpdate) {
-    return null;
+	  Aluno alunoDB = repository.findById(id).get();
+	  alunoDB.setNome(formUpdate.getNome());
+	  alunoDB.setBairro(formUpdate.getBairro());
+	  alunoDB.setDataDeNascimento(formUpdate.getDataDeNascimento());
+	  repository.save(alunoDB);
+	  
+    return alunoDB;
   }
 
   @Override
   public void delete(Long id) {
+	  Aluno aluno = repository.findById(id).get();
+	  
+	  if (aluno != null) {
+		  repository.delete(aluno);
+	  }
   }
 
   @Override

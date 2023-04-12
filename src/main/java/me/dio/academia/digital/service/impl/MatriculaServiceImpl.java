@@ -1,6 +1,7 @@
 package me.dio.academia.digital.service.impl;
 
 import me.dio.academia.digital.entity.Aluno;
+import me.dio.academia.digital.entity.AvaliacaoFisica;
 import me.dio.academia.digital.entity.Matricula;
 import me.dio.academia.digital.entity.form.MatriculaForm;
 import me.dio.academia.digital.repository.AlunoRepository;
@@ -47,7 +48,13 @@ public class MatriculaServiceImpl implements IMatriculaService {
   }
 
   @Override
-  public void delete(Long id) {}
+  public void delete(Long id) {
+	  Matricula matricula = matriculaRepository.findById(id).get();
+	  
+	  if (matricula != null) {
+		  matriculaRepository.delete(matricula);
+	  }
+  }
 
 
 

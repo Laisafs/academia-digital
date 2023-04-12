@@ -26,5 +26,11 @@ public class MatriculaController {
     return service.getAll(bairro);
   }
 
+  @DeleteMapping("/{id}")
+  public Object delete(@PathVariable Long id){
+    service.delete(id);
+    
+    return "Registro deletado com Sucesso!";
+  }
 }
 

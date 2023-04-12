@@ -22,9 +22,13 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
   private AlunoRepository alunoRepository;
 
   @Override
-  public AvaliacaoFisica create(AvaliacaoFisicaForm form) {
+  public AvaliacaoFisica create(AvaliacaoFisicaForm form) throws Exception {
     AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
     Aluno aluno = alunoRepository.findById(form.getAlunoId()).get();
+    
+    if (aluno == null) {
+    	throw new Exception("Aluno não localizado!");
+    }
 
     avaliacaoFisica.setAluno(aluno);
     avaliacaoFisica.setPeso(form.getPeso());
@@ -35,22 +39,30 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
 
   @Override
   public AvaliacaoFisica get(Long id) {
-    return null;
+	  return avaliacaoFisicaRepository.getById(id);
   }
 
   @Override
   public List<AvaliacaoFisica> getAll() {
-
     return avaliacaoFisicaRepository.findAll();
   }
 
   @Override
   public AvaliacaoFisica update(Long id, AvaliacaoFisicaUpdateForm formUpdate) {
-    return null;
+	  AvaliacaoFisica avaliacaoFisicaDB = avaliacaoFisicaRepository.findById(id).get();
+	  avaliacaoFisicaDB.setPeso(formUpdate.getPeso());
+	  avaliacaoFisicaDB.setAltura(formUpdate.getAltura());
+	  avaliacaoFisicaRepository.save(avaliacaoFisicaDB);
+	  
+	  return avaliacaoFisicaDB;
   }
 
   @Override
   public void delete(Long id) {
-
+	  AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaRepository.findById(id).get();
+	  
+	  if (avaliacaoFisica != null) {
+		  avaliacaoFisicaRepository.delete(avaliacaoFisica);
+	  }
   }
 }
